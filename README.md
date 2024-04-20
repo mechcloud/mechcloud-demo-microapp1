@@ -27,7 +27,7 @@ yarn preview
 Now this microapp can be accessed at https://microapp1.mechcloud.lab:8080 url.
 
 ## Configure this micro app in MechCloud
-* This repository is using a certicate located under `certs/server` for vite previer server which is signed by a certificate located under `certs/ca` folder. So you can either import this certificate in the trust store of your operating system or simply open `https://microapp1.mechcloud.lab:8080/vue-components.mjs` url in the browser and accept the self-signed certificate temporarily.  
+* This repository is using a certicate located under `certs/server` for vite preview server which is signed by a certificate located under `certs/ca` folder. So you can either import this certificate in the trust store of your operating system or simply open `https://microapp1.mechcloud.lab:8080/vue-components.mjs` url in the browser and accept the self-signed certificate temporarily.  
 
 * Configure this micro app at either team or site level under `Custom Components Host` field using `https://microapp1.mechcloud.lab:8080/vue-components.mjs` as its value.
 
