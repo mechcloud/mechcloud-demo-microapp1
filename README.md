@@ -3,7 +3,7 @@ This demo micro app provides a number of components (Frames, Layouts, External P
 
 **These components are hosted at `https://demo-microapp1.mechcloud.io` too and so you can skip local setup section if you just want to experience these components in a MechCloud site without any modification.** 
 * These components are already registered under `Default (Managed)` team and so these will be visible if you are using page designer for a site page created under this team.
-* If you have created your own custom team then make sure you register these components under relevent pages before these components can be consumed for a site or a site page.
+* If you have created your own custom team then make sure you register these components under relevent pages (Site Builder -> Frames / Components) before these components are visible while creating a site or on the page designer.
 
 ## Local setup instructions
 * Clone this repository.
