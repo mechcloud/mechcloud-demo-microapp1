@@ -41,14 +41,8 @@ defineProps({
             label: ''
         }
     },
-    heading: {
-        type: String,
-        default: 'Heading (Rich text)'
-    },
-    description: {
-        type: String,
-        default: 'Subheading (Normal text)'
-    },
+    heading: String,
+    description: String,
     links: Array
 })
 

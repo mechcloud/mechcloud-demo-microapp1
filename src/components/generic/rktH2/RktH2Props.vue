@@ -11,9 +11,16 @@
 
 <script setup>
    import { 
-      inject
+      inject,
+      onMounted
    } from 'vue'
 
    const selectedControl = inject('selectedControl')
+
+   onMounted(() => {
+      if(selectedControl.value.metadata.props.msg === undefined) {
+         selectedControl.value.metadata.props.msg = 'Heading2'
+      }
+    })
 </script>
 

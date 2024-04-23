@@ -27,7 +27,8 @@
  
  <script setup>
     import { 
-       inject
+       inject,
+       onMounted
     } from 'vue'
 
     const bgColors = [
@@ -42,4 +43,16 @@
     ]
     
     const selectedControl = inject('selectedControl')
+    
+    onMounted(() => {
+        // console.log(selectedControl.value.metadata.props)
+
+        if(selectedControl.value.metadata.props.heading === undefined) {
+            selectedControl.value.metadata.props.heading = 'Heading (Rich text)'
+        }
+
+        if(selectedControl.value.metadata.props.description === undefined) {
+            selectedControl.value.metadata.props.description = 'Subheading (Normal text)'
+        }
+    })
  </script>
