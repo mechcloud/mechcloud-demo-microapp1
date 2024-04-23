@@ -1,7 +1,9 @@
 # mechcloud-demo-microapp1
-Demo micro app for MechCloud website builder
+This demo micro app provides a number of components (Frames, Layouts, External Pages and Generic Components) which can be consumed in MechCloud sites.
 
-## Setup instructions
+**These components are hosted at `https://demo-microapp1.mechcloud.io` too and so you can skip local setup section if you just want to experience these components in a MechCloud site without any modification.**
+
+## Local setup instructions
 * Clone this repository.
 * Install dependencies -
 ```
@@ -27,7 +29,16 @@ yarn preview
 Now this microapp can be accessed at https://microapp1.mechcloud.lab:8080 url.
 
 ## Configure this micro app in MechCloud
+You can configure a micro app at either team or site level. All sites in a team inherits this configuration from their parent team and can override it too as shown below -
+
+![image](https://github.com/mechcloud/mechcloud-demo-microapp1/assets/4586024/6d181005-2845-4312-8aa7-cffe106b6289)
+
+
+### Consuming components from hosted location
+* Configure this micro app at either team or site level under `Custom Components Host` field using `https://demo-microapp1.mechcloud.io` as its value.
+
+### Consuming components from local setup
 * This repository is using a certicate located under `certs/server` for vite preview server which is signed by a certificate located under `certs/ca` folder. So you can either import this certificate in the trust store of your operating system or simply open `https://microapp1.mechcloud.lab:8080/vue-components.mjs` url in the browser and accept the self-signed certificate temporarily.  
 
-* Configure this micro app at either team or site level under `Custom Components Host` field using `https://microapp1.mechcloud.lab:8080/vue-components.mjs` as its value.
+* Configure this micro app at either team or site level under `Custom Components Host` field using `https://microapp1.mechcloud.lab:8080` as its value.
 
