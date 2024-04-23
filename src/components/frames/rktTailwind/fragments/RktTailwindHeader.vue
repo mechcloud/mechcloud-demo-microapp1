@@ -1,6 +1,6 @@
 <template>
    <header
-      class="mc-container header tw-sticky tw-z-50 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 tw-py-3 mc-flex mc-flex-h-space-between"
+      class="mc-container header tw-sticky tw-z-10 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 tw-py-3 mc-flex mc-flex-h-space-between"
       style="flex-direction: row;"
    >
       <a 
