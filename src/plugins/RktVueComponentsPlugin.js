@@ -2,7 +2,7 @@ import * as RktVueComponents from '@/components'
 
 export default {
    install(app) {
-      // console.log(RktVueComponents)
+      console.log('Registering rocket components ..')
 
       Object.keys(RktVueComponents).forEach(key => {
          const cmpntName = Object.keys({ [key]: key })[0]
