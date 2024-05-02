@@ -2,25 +2,26 @@
     <div class="mc-grid-container" :class="{[bgColor.id]: bgColor.id !== ''}">
         <div class="hero mc-grid">
             <div>
-                <h1 class="mc-fs-25 mc-fw-7" v-html="heading"></h1>
-                <p v-if="isEditMode" v-model-text:description="description"></p>
-                <p v-else v-text="description"></p>
+                <h1 class="mc-fs-25 mc-fw-7 mc-lh-3" v-html="heading"></h1>
+                
+                <edit-text
+                    tag="p"
+                    arg="description"
+                    :mapping="description"
+                />
+
                 <div 
                     class="mc-flex mc-flex-h-center"
                     style="gap: 0.75rem; margin-top: 2rem; margin-bottom: 1rem;"
                 >
-                    <a v-if="isEditMode" v-for="(link, index) in links"
+                    <edit-text
+                        v-for="(link, index) in links"
                         :href="link.url"
                         target="_blank"
-                        v-model-text:[getPropName(index)]="link.label"
-                    >
-                    </a>
-                    <a v-else v-for="(link, index) in links"
-                        :href="link.url"
-                        target="_blank"
-                        v-text:[getPropName(index)]="link.label"
-                    >
-                    </a>
+                        tag="a"
+                        :arg="`links.${index}.label`"
+                        :mapping="link.label"
+                    />
                 </div>
             </div>
             <img src="https://mechcloud.io/hero/mechcloud-hero-section2.webp" alt="Piston" />
@@ -29,9 +30,9 @@
 </template>
 
 <script setup>
-import { 
-    inject 
-} from 'vue'
+import {
+    EditText
+} from '@mechcloud/piston-ui-sdk'
 
 defineProps({
     bgColor: {
@@ -46,11 +47,6 @@ defineProps({
     links: Array
 })
 
-const isEditMode = inject('isEditMode')
-
-function getPropName(index) {
-    return `links.${index}.label`
-}
 </script>
 
 <style scoped>
@@ -65,7 +61,7 @@ function getPropName(index) {
 
         & > h1 {
             text-align: center;
-            line-height: 3rem;
+            /* line-height: 3rem; */
         }
 
         & > p {
