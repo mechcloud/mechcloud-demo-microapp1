@@ -10,7 +10,7 @@
       "preview": "vite preview --host :: --strictPort --port 8080"
    },
    "dependencies": {
-      "@mechcloud/piston-ui-sdk": "^1.0.2",
+      "@mechcloud/piston-ui-sdk": "^1.0.7",
       "pinia": "^2.1.7",
       "vue": "^3.4.23"
    },
