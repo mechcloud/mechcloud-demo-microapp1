@@ -3,14 +3,23 @@
       class="mc-container header tw-sticky tw-z-10 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 tw-py-3 mc-flex mc-flex-h-space-between"
       style="flex-direction: row;"
    >
-      <a 
-            href="https://tailwindcss.com" 
+      <nav class="mc-flex mc-flex-h-space-between">
+         <a 
+            href="https://ui.shadcn.com" 
             target="_blank"
+         >
+            <strong style="font-size: larger;">Shadcn/Tailwind</strong>
+         </a>
+         
+         <rkt-tailwind-top-navigation
             class="mc-flex mc-flex-v-center"
-            style="gap: 0.3rem; flex-direction: row;"
-      >
-            <strong style="font-size: larger;">Tailwind</strong>
-      </a>
+            style="gap: 0.5rem;"
+            uriPrefix=""
+            :nodes="$mcContext.siteMap"
+         />
+         
+         <div style="margin: 1rem 0; margin-left: 1rem;">{{ $mcContext.user.email }}</div>
+      </nav>
    </header>
 </template>
 
@@ -20,10 +29,8 @@ export default {
 }
 </script>
 
-<script setup> 
-import { 
-   McNavigationLink,
-} from '@mechcloud/piston-ui-sdk'
+<script setup>
+import RktTailwindTopNavigation from './RktTailwindTopNavigation.vue';
 </script>
 
 <style scoped> 
@@ -36,6 +43,11 @@ import {
    .header {
       padding-inline-start: 1rem;
       padding-inline-end: 1rem;
+
+      & > nav {
+         width: calc(100vw - 2rem);
+         margin: auto;
+      }
    }
 
    .nav-link {

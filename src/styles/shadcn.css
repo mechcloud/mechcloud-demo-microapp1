@@ -1,0 +1,61 @@
+.tw1-transition-colors {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: .15s;
+}
+
+.tw1-bg-accent {
+    background-color: hsl(var(--accent));
+}
+.tw1-bg-muted {
+    background-color: hsl(var(--muted));
+}
+.tw1-bg-muted-40 {
+    background-color: hsl(var(--muted)/.4);
+}
+.tw1-bg-muted-50 {
+    background-color: hsl(var(--muted)/.5);
+}
+.tw1-bg-muted-60 {
+    background-color: hsl(var(--muted)/.6);
+}
+.tw1-bg-primary {
+    background-color: hsl(var(--primary));
+}
+.tw1-bg-primary-90 {
+    background-color: hsl(var(--primary) / .9);
+}
+
+.tw1-text-foreground {
+    color: hsl(var(--foreground));
+}
+.tw1-text-foreground-60 {
+    color: hsl(var(--foreground) / .6);
+}
+.tw1-text-accent-foreground {
+    color: hsl(var(--accent-foreground));
+}
+.tw1-text-muted-foreground {
+    color: hsl(var(--muted-foreground));
+}
+.tw1-text-primary-foreground {
+    color: hsl(var(--primary-foreground));
+}
+.tw1-text-secondary-foreground {
+    color: hsl(var(--secondary-foreground));
+}
+
+.tw1-border1 {
+    border: 1px solid hsl(var(--border));
+    border-radius: 6px;
+}
+.tw1-border-input {
+    border-color: hsl(var(--input));
+}
+.tw1-shadow1 {
+    box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, .1);
+}
+.tw1-shadow2 {
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, .1);
+}
+
