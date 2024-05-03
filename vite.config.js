@@ -60,6 +60,9 @@ export default defineConfig({
                export const withDirectives = Vue.withDirectives
                export const normalizeProps = Vue.normalizeProps
                export const createTextVNode = Vue.createTextVNode
+               export const mergeProps = Vue.mergeProps
+               export const withCtx = Vue.withCtx
+               export const guardReactiveProps = Vue.guardReactiveProps
             `,
             'vue-demi': `
                export const getCurrentInstance = Vue.getCurrentInstance

@@ -521,7 +521,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mechcloud/demo-microapp1@workspace:."
   dependencies:
-    "@mechcloud/piston-ui-sdk": "npm:^1.0.2"
+    "@mechcloud/piston-ui-sdk": "npm:^1.0.7"
     "@rollup/plugin-replace": "npm:^5.0.5"
     "@rollup/plugin-virtual": "npm:^3.0.2"
     "@vitejs/plugin-vue": "npm:^5.0.4"
@@ -539,21 +539,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mechcloud/piston-ui-sdk@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@mechcloud/piston-ui-sdk@npm:1.0.2"
+"@mechcloud/piston-ui-sdk@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@mechcloud/piston-ui-sdk@npm:1.0.7"
   dependencies:
     "@mechcloud/shared-js": "link:../mechcloud-shared-js"
   peerDependencies:
     pinia: ^2.1.7
     vue: ^3.4.23
-  checksum: 10c0/6eec5917614187f8f6fe8802826509f10131c4d48c3851ef041ac268633efe9c47072a6683f3ab67ddc0a842d34d88b5867477acb2e21d1600300146e39efaf4
+  checksum: 10c0/36d4a92244e716cdaf1078ceef6b35dedb919d7c26a98bbf486aa7f892599fcd37686309f697be36c3a43544aec8cc4f71112b87357125c3d12803bfff85ea7d
   languageName: node
   linkType: hard
 
-"@mechcloud/shared-js@link:../mechcloud-shared-js::locator=%40mechcloud%2Fpiston-ui-sdk%40npm%3A1.0.2":
+"@mechcloud/shared-js@link:../mechcloud-shared-js::locator=%40mechcloud%2Fpiston-ui-sdk%40npm%3A1.0.7":
   version: 0.0.0-use.local
-  resolution: "@mechcloud/shared-js@link:../mechcloud-shared-js::locator=%40mechcloud%2Fpiston-ui-sdk%40npm%3A1.0.2"
+  resolution: "@mechcloud/shared-js@link:../mechcloud-shared-js::locator=%40mechcloud%2Fpiston-ui-sdk%40npm%3A1.0.7"
   languageName: node
   linkType: soft
 
