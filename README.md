@@ -1,5 +1,5 @@
 # mechcloud-demo-microapp1
-This demo micro app provides a number of components (Frames, Layouts, External Pages and Generic Components) which can be consumed in MechCloud sites.
+This demo micro app provides a number of components (Frames, Layouts, External Pages and Generic) which can be consumed in MechCloud sites from a remote deployment.
 
 **These components are hosted at `https://demo-microapp1.mechcloud.io` too and so you can skip local setup section if you just want to experience these components in a MechCloud site without any modification.** 
 * These components are already registered under `Default (Managed)` team and so these will be visible if you are using page designer for a site page created under this team.
@@ -31,7 +31,7 @@ yarn preview
 Now this microapp can be accessed at https://microapp1.mechcloud.lab:8080 url.
 
 ## Configure this micro app in MechCloud
-You can configure a micro app at either team or site level. All sites in a team inherits this configuration from their parent team and can override it too as shown below -
+You can configure a micro app at either team or site level. All sites under a team inherit this configuration from the parent team and can override it too as shown below -
 
 ![image](https://github.com/mechcloud/mechcloud-demo-microapp1/assets/4586024/6d181005-2845-4312-8aa7-cffe106b6289)
 

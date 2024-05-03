@@ -1,25 +1,25 @@
 <template>
    <header
-      class="mc-container header tw-sticky tw-z-10 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 tw-py-3 mc-flex mc-flex-h-space-between"
+      class="mc-container header tw-sticky tw-z-10 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 tw-py-3 mc-flex mc-flex-h-space-between mc-flex-v-center mc-fs-0875"
       style="flex-direction: row;"
    >
-      <nav class="mc-flex mc-flex-h-space-between">
-         <a 
-            href="https://ui.shadcn.com" 
-            target="_blank"
-         >
-            <strong style="font-size: larger;">Shadcn/Tailwind</strong>
-         </a>
-         
+      <a 
+         href="https://ui.shadcn.com" 
+         target="_blank"
+      >
+         <strong style="font-size: larger;">Shadcn/Tailwind</strong>
+      </a>
+      
+      <nav style="display: contents;">
          <rkt-tailwind-top-navigation
             class="mc-flex mc-flex-v-center"
             style="gap: 0.5rem;"
             uriPrefix=""
             :nodes="$mcContext.siteMap"
          />
-         
-         <div style="margin: 1rem 0; margin-left: 1rem;">{{ $mcContext.user.email }}</div>
       </nav>
+      
+      <div>{{ $mcContext.user.email }}</div>
    </header>
 </template>
 
