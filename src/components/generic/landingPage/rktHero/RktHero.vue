@@ -35,13 +35,7 @@ import {
 } from '@mechcloud/piston-ui-sdk'
 
 defineProps({
-    bgColor: {
-        type: Object,
-        default: {
-            id: '',
-            label: ''
-        }
-    },
+    bgColor: Object,
     heading: String,
     description: String,
     links: Array

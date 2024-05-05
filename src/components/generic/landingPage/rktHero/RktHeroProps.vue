@@ -47,8 +47,13 @@
     onMounted(() => {
         selectedControl.value.metadata.props = Object.assign(
             {
+                bgColor: {
+                    id: '',
+                    label: ''
+                },
                 heading: 'Heading ..',
-                description: 'Description ..'
+                description: 'Description ..',
+                links: []
             },
             selectedControl.value.metadata.props
         )
