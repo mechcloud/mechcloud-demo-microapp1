@@ -20,7 +20,7 @@
         <p class="plan-cta">
             <edit-text
                 tag="a"
-                :arg="`cta.label`"
+                arg="cta.label"
                 :mapping="cta.label"
                 :href="cta.url"
                 target="_blank"
@@ -33,7 +33,7 @@
             <span class="mc-fs-2 mc-fw-7">$</span>
             <edit-text
                 tag="span"
-                arg="`pricing.monthly`"
+                arg="pricing.monthly"
                 :mapping="pricing.monthly"
                 class="mc-fs-2 mc-fw-7"
             />
