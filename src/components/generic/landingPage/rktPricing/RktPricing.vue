@@ -49,7 +49,7 @@ defineProps({
     },
     heading: String,
     description: String,
-    plans: Array
+    // plans: Array
 })
 </script>
 

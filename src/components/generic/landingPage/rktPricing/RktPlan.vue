@@ -58,7 +58,7 @@ defineProps({
     cta: Object,
     pricing: Object,
     // cta: String,
-    featuresGroups: Array
+    // featuresGroups: Array
 })
 </script>
 

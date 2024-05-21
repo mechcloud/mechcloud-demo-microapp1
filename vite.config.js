@@ -63,6 +63,7 @@ export default defineConfig({
                export const mergeProps = Vue.mergeProps
                export const withCtx = Vue.withCtx
                export const guardReactiveProps = Vue.guardReactiveProps
+               export const isRef = Vue.isRef
             `,
             'vue-demi': `
                export const getCurrentInstance = Vue.getCurrentInstance

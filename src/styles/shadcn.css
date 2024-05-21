@@ -4,6 +4,12 @@
     transition-duration: .15s;
 }
 
+.tw1-bg-primary {
+    background-color: hsl(var(--primary));
+}
+.tw1-bg-primary-90 {
+    background-color: hsl(var(--primary) / .9);
+}
 .tw1-bg-accent {
     background-color: hsl(var(--accent));
 }
@@ -19,11 +25,8 @@
 .tw1-bg-muted-60 {
     background-color: hsl(var(--muted)/.6);
 }
-.tw1-bg-primary {
-    background-color: hsl(var(--primary));
-}
-.tw1-bg-primary-90 {
-    background-color: hsl(var(--primary) / .9);
+.tw1-bg-background {
+    background-color: hsl(var(--background));
 }
 
 .tw1-text-foreground {
@@ -32,17 +35,17 @@
 .tw1-text-foreground-60 {
     color: hsl(var(--foreground) / .6);
 }
-.tw1-text-accent-foreground {
-    color: hsl(var(--accent-foreground));
-}
-.tw1-text-muted-foreground {
-    color: hsl(var(--muted-foreground));
-}
 .tw1-text-primary-foreground {
     color: hsl(var(--primary-foreground));
 }
 .tw1-text-secondary-foreground {
     color: hsl(var(--secondary-foreground));
+}
+.tw1-text-accent-foreground {
+    color: hsl(var(--accent-foreground));
+}
+.tw1-text-muted-foreground {
+    color: hsl(var(--muted-foreground));
 }
 
 .tw1-border1 {
