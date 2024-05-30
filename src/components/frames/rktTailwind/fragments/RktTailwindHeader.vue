@@ -7,7 +7,7 @@
          href="https://ui.shadcn.com" 
          target="_blank"
       >
-         <strong style="font-size: larger;">Shadcn/Tailwind</strong>
+         <strong style="font-size: larger;">Rocket</strong>
       </a>
       
       <nav style="display: contents;">

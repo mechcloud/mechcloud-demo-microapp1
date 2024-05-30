@@ -1,6 +1,6 @@
 <template>
    <rkt-tailwind-header />
-   <main style="max-width: 1440px; margin: auto;">
+   <main style="max-width: 1440px; margin: auto; padding: 0.2rem;">
       <mc-render-node />
    </main>
 </template>
