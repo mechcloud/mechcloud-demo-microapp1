@@ -15,6 +15,9 @@ export default defineConfig({
          formats: ['es']
       },
       rollupOptions: {
+         // external: [
+         //    '@mechcloud/piston-ui-sdk'
+         // ],
          plugins: [
             replace({
                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),

@@ -1,5 +1,5 @@
 <template>
-   <header
+   <header id="header" data="mc-static-global"
       class="mc-container header tw-sticky tw-z-10 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 tw-py-3 mc-flex mc-flex-h-space-between mc-flex-v-center mc-fs-0875"
       style="flex-direction: row;"
    >
