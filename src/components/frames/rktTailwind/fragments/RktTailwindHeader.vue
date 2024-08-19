@@ -1,7 +1,7 @@
 <template>
    <header
-      class="mc-container header tw-sticky tw-z-10 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 tw-py-3 mc-flex mc-flex-h-space-between mc-flex-v-center mc-fs-0875"
-      style="flex-direction: row;"
+      class="mc-container header tw-sticky tw-z-10 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 tw-py-3 mc-flex mc-flex-v-center mc-fs-0875"
+      style="flex-direction: row; gap: 1rem;"
    >
       <a 
          href="https://ui.shadcn.com" 
@@ -19,7 +19,7 @@
          />
       </nav>
       
-      <div>{{ $mcContext.user.email }}</div>
+      <div v-if="!isStaticVersion" style="margin-left: auto;">{{ $mcContext.user.email }}</div>
    </header>
 </template>
 
@@ -30,10 +30,13 @@ export default {
 </script>
 
 <script setup>
-import RktTailwindTopNavigation from './RktTailwindTopNavigation.vue';
+import { inject } from 'vue';
+import RktTailwindTopNavigation from './RktTailwindTopNavigation.vue'
+
+const isStaticVersion = inject('isStaticVersion')
 </script>
 
-<style scoped> 
+<style> 
    @container mc-container (max-width: 430px) {
       nav, .nav-btns {
             display: none;

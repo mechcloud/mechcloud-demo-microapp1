@@ -67,7 +67,7 @@ import RktTailwindHeader from './fragments/RktTailwindHeader.vue'
    }
 </style>
 
-<style scoped>
+<style>
 /* main {
    margin-top: 3rem;
    padding: 1rem;

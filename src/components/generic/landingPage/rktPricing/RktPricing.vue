@@ -53,7 +53,7 @@ defineProps({
 })
 </script>
 
-<style scoped>
+<style>
 .plans {
     text-align: left;
     grid-template-columns: repeat(auto-fit, minmax(250px, 300px));

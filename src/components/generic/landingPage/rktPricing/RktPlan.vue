@@ -62,7 +62,7 @@ defineProps({
 })
 </script>
 
-<style scoped>
+<style>
 .plan {
     background-color: white; 
     padding: 1rem;

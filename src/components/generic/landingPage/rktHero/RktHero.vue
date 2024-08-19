@@ -43,7 +43,7 @@ defineProps({
 
 </script>
 
-<style scoped>
+<style>
 .hero {
     padding: 1rem;
     gap: 1rem;

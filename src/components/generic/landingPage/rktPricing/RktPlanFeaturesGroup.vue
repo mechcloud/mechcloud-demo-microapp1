@@ -34,7 +34,7 @@ defineProps({
 })
 </script>
 
-<style scoped>
+<style>
 .plan-section {
     margin-bottom: 0.5rem;
     

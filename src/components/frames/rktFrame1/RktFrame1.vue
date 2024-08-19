@@ -26,7 +26,7 @@ import {
 } from '@mechcloud/piston-ui-sdk'
 </script>
 
-<style scoped>
+<style>
 header {
    padding-inline-start: 1rem;
    padding-inline-end: 1rem;
