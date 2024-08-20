@@ -8,7 +8,7 @@
    "scripts": {
       "build": "vite build",
       "preview": "vite preview --host :: --strictPort --port 8080",
-      "wrangler-pages-deploy": "wrangler pages deploy ./dist --project-name mechcloud-demo-microapp1 --branch main"
+      "deploy": "wrangler pages deploy ./dist --project-name mechcloud-demo-microapp1 --branch main"
    },
    "dependencies": {
       "@mechcloud/piston-ui-sdk": "link:../../mechcloud/shared/mechcloud-piston-ui-sdk",
