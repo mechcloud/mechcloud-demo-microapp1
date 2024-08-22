@@ -21,6 +21,6 @@
       if(selectedControl.value.metadata.props.msg === undefined) {
          selectedControl.value.metadata.props.msg = 'Heading2'
       }
-    })
+   })
 </script>
 
