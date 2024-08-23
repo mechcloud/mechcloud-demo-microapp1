@@ -22,7 +22,10 @@
                   </span>
                </template>
                <template #menu-content>
-                  <mc-generic-menu :nodes="topNode.children">
+                  <!-- <mc-generic-menu 
+                     :nodes="topNode.children"
+                     icon="caret-right"
+                  >
                      <template #slot1="slotProps">
                         <mc-navigation-link
                            :title="slotProps.node.attrs.title"
@@ -37,7 +40,12 @@
                            {{ slotProps.node.attrs.title }}
                         </span>
                      </template>
-                  </mc-generic-menu>
+                  </mc-generic-menu> -->
+                  <rkt-menu-wrapper 
+                     uriPrefix=""
+                     :parentNode="topNode" 
+                     :children="topNode.children" 
+                  />
                </template>
             </mc-menu-wrapper>
          </template>
@@ -62,6 +70,8 @@ import {
    McNavigationLink,
 } from '@mechcloud/piston-ui-sdk'
 
+// import RktMenuWrapper from './RktMenuWrapper.vue';
+
 const props = defineProps({
    nodes: Array
 })
@@ -84,6 +94,10 @@ div[mc-role=top-navigation] {
          outline: none;
          @extend .tw1-bg-accent;
       }
+   }
+
+   & div:hover {
+      @extend .tw1-bg-accent;
    }
 }
 </style>

@@ -3,6 +3,14 @@
    <main style="max-width: 1440px; margin: auto; padding: 0.2rem;">
       <mc-render-node />
    </main>
+
+   <!-- This is required to remove focus away
+   after clicking on navigation context menu -->
+   <a 
+      hef="#" 
+      ref="navHideFocus"
+      tabindex="0"
+   />
 </template>
 
 <script>
@@ -17,6 +25,10 @@ import {
 } from '@mechcloud/piston-ui-sdk'
 
 import RktTailwindHeader from './fragments/RktTailwindHeader.vue'
+import { provide, shallowRef } from 'vue';
+
+const navHideFocus = shallowRef(null)
+provide('nav-hide-focus', navHideFocus)
 </script>
 
 <style>

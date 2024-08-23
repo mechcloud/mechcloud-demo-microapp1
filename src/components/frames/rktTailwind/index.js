@@ -8,7 +8,12 @@ const RktTailwindProps = defineAsyncComponent(() =>
    import("./RktTailwindProps.vue")
 )
 
+const RktMenuWrapper = defineAsyncComponent(() =>
+   import("./fragments/RktMenuWrapper.vue")
+)
+
 export {
    RktTailwind,
-   RktTailwindProps
+   RktTailwindProps,
+   RktMenuWrapper
 }
