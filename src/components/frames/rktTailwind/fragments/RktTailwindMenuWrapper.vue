@@ -20,10 +20,10 @@
             </span>
          </template>
          <template  #slot3="slotProps">
-            <rkt-menu-wrapper 
+            <rkt-tailwind-menu-wrapper 
                :uriPrefix="slotProps.uriPrefix"
                :parentNode="slotProps.parentNode"
-               :children="slotProps.children" 
+               :children="slotProps.children.filter(node => !node.hasOwnProperty('hidden') || !node.hidden)" 
             />
          </template>
       </mc-generic-menu>
