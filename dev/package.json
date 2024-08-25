@@ -11,7 +11,7 @@
       "deploy": "wrangler pages deploy ./dist --project-name mechcloud-demo-microapp1 --branch main"
    },
    "dependencies": {
-      "@mechcloud/piston-ui-sdk": "^1.0.11",
+      "@mechcloud/piston-ui-sdk": "link:../../mechcloud/shared/mechcloud-piston-ui-sdk",
       "pinia": "^2.2.1",
       "vue": "^3.4.37"
    },
@@ -28,5 +28,10 @@
       "vite": "^5.4.0",
       "wrangler": "^3.71.0",
       "yarn-upgrade-all": "^0.7.4"
+   },
+   "yarn-upgrade-all": {
+      "ignore": [
+         "@mechcloud/piston-ui-sdk"
+      ]
    }
 }
