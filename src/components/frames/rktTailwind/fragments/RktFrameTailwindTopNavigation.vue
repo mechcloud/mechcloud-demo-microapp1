@@ -41,7 +41,7 @@
                         </span>
                      </template>
                   </mc-generic-menu> -->
-                  <rkt-tailwind-menu-wrapper 
+                  <rkt-frame-tailwind-menu-wrapper 
                      uriPrefix=""
                      :parentNode="topNode" 
                      :children="topNode.children.filter(node => !node.hasOwnProperty('hidden') || !node.hidden)" 

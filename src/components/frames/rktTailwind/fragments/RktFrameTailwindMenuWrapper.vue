@@ -4,6 +4,7 @@
          :parentNode="parentNode"
          :children="children"
          icon="caret-right"
+         style="width: 15rem;"
       >
          <template #slot1="slotProps">
             <mc-navigation-link
@@ -20,7 +21,7 @@
             </span>
          </template>
          <template  #slot3="slotProps">
-            <rkt-tailwind-menu-wrapper 
+            <rkt-frame-tailwind-menu-wrapper 
                :uriPrefix="slotProps.uriPrefix"
                :parentNode="slotProps.parentNode"
                :children="slotProps.children.filter(node => !node.hasOwnProperty('hidden') || !node.hidden)" 

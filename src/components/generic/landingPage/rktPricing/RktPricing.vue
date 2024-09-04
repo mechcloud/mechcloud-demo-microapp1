@@ -4,7 +4,7 @@
         :class="{[bgColor.id]: bgColor.id !== ''}"
     >
         <!-- heading -->
-        <edit-text
+        <mc-edit-text
             tag="h2"
             arg="heading"
             :mapping="heading"
@@ -13,7 +13,7 @@
         />
         
         <!-- description -->
-        <edit-text
+        <mc-edit-text
             tag="p"
             arg="description"
             :mapping="description"
@@ -36,7 +36,7 @@
 
 <script setup>
 import {
-    EditText
+    McEditText
 } from '@mechcloud/piston-ui-sdk'
 
 defineProps({

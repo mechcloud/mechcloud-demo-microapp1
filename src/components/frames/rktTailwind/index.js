@@ -1,19 +1,19 @@
 import { defineAsyncComponent } from "vue";
 
-const RktTailwind = defineAsyncComponent(() =>
-   import("./RktTailwind.vue")
+const RktFrameTailwind = defineAsyncComponent(() =>
+   import("./RktFrameTailwind.vue")
 )
 
-const RktTailwindProps = defineAsyncComponent(() =>
-   import("./RktTailwindProps.vue")
+const RktFrameTailwindProps = defineAsyncComponent(() =>
+   import("./RktFrameTailwindProps.vue")
 )
 
-const RktTailwindMenuWrapper = defineAsyncComponent(() =>
-   import("./fragments/RktTailwindMenuWrapper.vue")
+const RktFrameTailwindMenuWrapper = defineAsyncComponent(() =>
+   import("./fragments/RktFrameTailwindMenuWrapper.vue")
 )
 
 export {
-   RktTailwind,
-   RktTailwindProps,
-   RktTailwindMenuWrapper
+   RktFrameTailwind,
+   RktFrameTailwindProps,
+   RktFrameTailwindMenuWrapper
 }

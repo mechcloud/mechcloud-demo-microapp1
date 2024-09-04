@@ -11,7 +11,7 @@
       </a>
       
       <nav id="top-navigation" data="mc-static-global" style="display: contents;">
-         <rkt-tailwind-top-navigation
+         <rkt-frame-tailwind-top-navigation
             class="mc-flex mc-flex-v-center"
             style="gap: 0.5rem;"
             uriPrefix=""
@@ -31,7 +31,7 @@ export default {
 
 <script setup>
 import { inject } from 'vue';
-import RktTailwindTopNavigation from './RktTailwindTopNavigation.vue'
+import RktFrameTailwindTopNavigation from './RktFrameTailwindTopNavigation.vue'
 
 const isStaticVersion = inject('isStaticVersion')
 </script>

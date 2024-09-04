@@ -4,7 +4,7 @@
             <div>
                 <h1 class="mc-fs-25 mc-fw-7 mc-lh-3" v-html="heading"></h1>
                 
-                <edit-text
+                <mc-edit-text
                     tag="p"
                     arg="description"
                     :mapping="description"
@@ -14,7 +14,7 @@
                     class="mc-flex mc-flex-h-center"
                     style="gap: 0.75rem; margin-top: 2rem; margin-bottom: 1rem;"
                 >
-                    <edit-text
+                    <mc-edit-text
                         v-for="(link, index) in links"
                         :href="link.url"
                         target="_blank"
@@ -31,7 +31,7 @@
 
 <script setup>
 import {
-    EditText
+    McEditText
 } from '@mechcloud/piston-ui-sdk'
 
 defineProps({

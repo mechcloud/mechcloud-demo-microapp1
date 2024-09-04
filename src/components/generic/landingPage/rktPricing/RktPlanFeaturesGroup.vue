@@ -1,6 +1,6 @@
 <template>
     <div class="plan-section">
-        <edit-text
+        <mc-edit-text
             tag="p"
             arg="name"
             :mapping="name"
@@ -10,7 +10,7 @@
         <ul>
             <li class="section-item" v-for="(feature, index) in features">
                 <mc-icon :clickable="false" icon="check" class="tw-text-blue-600" />
-                <edit-text
+                <mc-edit-text
                     tag="span"
                     :arg="'features.'+ index"
                     :mapping="feature"
@@ -25,7 +25,7 @@ import {
     inject 
 } from 'vue'
 import {
-    EditText
+    McEditText
 } from '@mechcloud/piston-ui-sdk'
 
 defineProps({

@@ -1,5 +1,5 @@
 <template>
-   <rkt-tailwind-header />
+   <rkt-frame-tailwind-header />
    <main style="max-width: 1440px; margin: auto; padding: 0.2rem;">
       <mc-render-node />
    </main>
@@ -24,7 +24,7 @@ import {
    McRenderNode
 } from '@mechcloud/piston-ui-sdk'
 
-import RktTailwindHeader from './fragments/RktTailwindHeader.vue'
+import RktFrameTailwindHeader from './fragments/RktFrameTailwindHeader.vue'
 import { provide, shallowRef } from 'vue';
 
 const navHideFocus = shallowRef(null)

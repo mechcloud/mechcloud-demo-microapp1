@@ -1,7 +1,7 @@
 <template>
     <div class="plan tw1-border1">
         <!-- name -->
-        <edit-text
+        <mc-edit-text
             tag="h3"
             arg="name"
             :mapping="name"
@@ -9,7 +9,7 @@
         />
 
         <!-- short description -->
-        <edit-text
+        <mc-edit-text
             tag="p"
             arg="shortDescription"
             :mapping="shortDescription"
@@ -18,7 +18,7 @@
 
         <!-- cta -->
         <p class="plan-cta">
-            <edit-text
+            <mc-edit-text
                 tag="a"
                 arg="cta.label"
                 :mapping="cta.label"
@@ -31,7 +31,7 @@
         <!-- pricing -->
         <p>
             <span class="mc-fs-2 mc-fw-7">$</span>
-            <edit-text
+            <mc-edit-text
                 tag="span"
                 arg="pricing.monthly"
                 :mapping="pricing.monthly"
@@ -49,7 +49,7 @@
 
 <script setup>
 import {
-    EditText
+    McEditText
 } from '@mechcloud/piston-ui-sdk'
 
 defineProps({
