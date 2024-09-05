@@ -4,22 +4,40 @@
    "version": "1.0.0",
    "license": "MIT",
    "author": "contact@mechcloud.io",
-   "module": "./dist/vue-components.mjs",
+   "type": "module",
+   "main": "./dist/vue-components.js",
+   "module": "./dist/vue-components.js",
    "scripts": {
-      "build": "vite build",
+      "lint": "run eslint --quiet src/",
+      "build": "run eslint --quiet src/ && vite build",
       "preview": "vite preview --host :: --strictPort --port 8080",
       "deploy": "wrangler pages deploy ./dist --project-name mechcloud-demo-microapp1 --branch main"
    },
    "dependencies": {
-      "@mechcloud/piston-ui-sdk": "^1.0.11",
+      "@mechcloud/piston-ui-sdk": "link:../../mechcloud/shared/mechcloud-piston-ui-sdk",
+      "@mechcloud/shared-js": "link:../../mechcloud/shared/mechcloud-shared-js",
+      "graphql": "^16.9.0",
+      "highlight.js": "^11.10.0",
+      "markdown-it": "^14.1.0",
       "pinia": "^2.2.1",
-      "vue": "^3.4.37"
+      "villus": "^3.5.0",
+      "vue": "^3.4.37",
+      "vue3-highlightjs": "^1.0.5"
+   },
+   "resolutions": {
+      "@mechcloud/shared-js": "^1.0.4",
+      "@mechcloud/piston-ui-sdk": "^1.0.13"
    },
    "devDependencies": {
+      "@eslint/js": "^9.9.1",
       "@rollup/plugin-replace": "^5.0.7",
+      "@rollup/plugin-terser": "^0.4.4",
       "@rollup/plugin-virtual": "^3.0.2",
       "@vitejs/plugin-vue": "^5.1.2",
       "autoprefixer": "^10.4.20",
+      "eslint": "^9.9.1",
+      "eslint-plugin-vue": "^9.27.0",
+      "globals": "^15.9.0",
       "postcss": "^8.4.41",
       "postcss-extend-rule": "^4.0.0",
       "postcss-import": "^16.1.0",
