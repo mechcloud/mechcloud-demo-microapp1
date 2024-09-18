@@ -1,20 +1,45 @@
 <template>
-   <div v-if="postHtmlContent != ''" mc-role="hashnode-blog-post" class="post">
+   <div 
+      x-data="getBlogInitData()"
+      v-if="postHtmlContent != ''" 
+      mc-role="hashnode-blog-post" 
+      class="post"
+   >
       <!-- <div> -->
       <div class="post-content">
          <h1 class="blog-title">{{ blogTitle }}</h1>
          <div v-html="postHtmlContent"></div>
       </div>
-      <div class="post-toc" v-if="toc.length > 0" :key="activeHeading">
-         <h2>Table of Contents</h2>
+      <div 
+         v-if="toc.length > 0" 
+         class="post-toc" 
+         :key="activeHeading"
+      >
+         <h3>Table of Contents</h3>
          <ul>
-            <li v-for="item in toc" :key="item.id">
-               <a :href="'#' + item.id" :class="{ 'active': activeHeading === item.id }"
-                  @click="handleTocClick(item.id)">{{ item.text }}</a>
-               <ul v-if="item.children">
-                  <li v-for="child in item.children" :key="child.id">
-                     <a :href="'#' + child.id" :class="{ 'active': activeHeading === child.id }"
-                        @click="handleTocClick(child.id)">{{ child.text }}</a>
+            <li 
+               v-for="item in toc" 
+               :key="item.id"
+            >
+               <a 
+                  :href="'#' + item.id" 
+                  x-bind:class="activeHeading === $el.getAttribute('href').substring(1) ? 'active': ''"
+                  x-on:click.prevent="scrollToHeading($event)"
+                  v-text="item.text"
+               ></a>
+               <ul 
+                  v-if="item.children"
+               >
+                  <li 
+                     v-for="child in item.children" 
+                     :key="child.id"
+                  >
+                     <a 
+                        :href="'#' + child.id" 
+                        x-bind:class="activeHeading === $el.getAttribute('href').substring(1) ? 'active': ''"
+                        x-on:click.prevent="scrollToHeading($event)"
+                        v-text="child.text"
+                     ></a>
                   </li>
                </ul>
             </li>
@@ -26,17 +51,17 @@
 </template>
 
 <script>
-   export default {
-      inheritAttrs: false,
-   }
+   // export default {
+   //    inheritAttrs: false
+   // }
 </script>
 
 <script setup>
-   import { shallowRef, watch, onMounted, nextTick, ref, onBeforeUnmount } from 'vue'
+   import { shallowRef, watch, onMounted, nextTick, ref } from 'vue'
    import { useClient, useQuery } from 'villus'
    import { mcLog } from '@mechcloud/shared-js'
-   import hljs from 'highlight.js'
-   import 'highlight.js/styles/default.css' // You can choose a different style
+   // import hljs from 'highlight.js'
+   // import 'highlight.js/styles/default.css' // You can choose a different style
    // import { throttle } from 'lodash-es'
    import MarkdownIt from 'markdown-it'
 
@@ -57,7 +82,7 @@
    const postHtmlContent = shallowRef('')
    const toc = shallowRef([])
    const activeHeading = ref('')
-   const observer = shallowRef(null)
+   // const observer = shallowRef(null)
 
    const markdownIt = new MarkdownIt()
 
@@ -101,6 +126,15 @@
          }
       })
 
+      // Add target="_blank" and rel="noopener noreferrer" to external links
+      const links = tempDiv.querySelectorAll('a')
+      links.forEach(link => {
+         if (link.hostname !== window.location.hostname) {
+            link.setAttribute('target', '_blank')
+            link.setAttribute('rel', 'noopener noreferrer')
+         }
+      })
+
       // Get the modified HTML
       let modifiedHtml = tempDiv.innerHTML
 
@@ -139,38 +173,38 @@
       return tocItems;
    }
 
-   function highlightCode() {
-      nextTick(() => {
-         document.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightElement(block)
-         })
-      })
-   }
+   // function highlightCode() {
+   //    nextTick(() => {
+   //       document.querySelectorAll('pre code').forEach((block) => {
+   //          hljs.highlightElement(block)
+   //       })
+   //    })
+   // }
 
-   function setupIntersectionObserver() {
-      // mcLog(logPrefix, 'Setting up Intersection Observer ..')
+   // function setupIntersectionObserver() {
+   //    // mcLog(logPrefix, 'Setting up Intersection Observer ..')
 
-      const options = {
-         root: document.querySelector('div[mc-role="layout-blog-post"] > .content'),
-         rootMargin: '100px 0px -90% 0px',
-         threshold: 0
-      }
+   //    const options = {
+   //       root: document.querySelector('div[mc-role="layout-blog-post"] > .content'),
+   //       rootMargin: '100px 0px -90% 0px',
+   //       threshold: 0
+   //    }
 
-      observer.value = new IntersectionObserver((entries) => {
-         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-               activeHeading.value = entry.target.id
-            }
-         })
-      }, options)
+   //    observer.value = new IntersectionObserver((entries) => {
+   //       entries.forEach(entry => {
+   //          if (entry.isIntersecting) {
+   //             activeHeading.value = entry.target.id
+   //          }
+   //       })
+   //    }, options)
 
-      nextTick(() => {
-         const headings = document.querySelectorAll('.post-content h2, .post-content h3')
-         headings.forEach(heading => {
-            observer.value.observe(heading)
-         })
-      })
-   }
+   //    nextTick(() => {
+   //       const headings = document.querySelectorAll('.post-content h2, .post-content h3')
+   //       headings.forEach(heading => {
+   //          observer.value.observe(heading)
+   //       })
+   //    })
+   // }
 
    async function loadPostContent(id) {
       mcLog(logPrefix, `Loading post content for id: ${id}`)
@@ -187,17 +221,130 @@
          toc.value = generateTOC(postHtmlContent.value)
 
          nextTick(() => {
-            highlightCode()
-            setupIntersectionObserver()
+            // highlightCode()
+            // setupIntersectionObserver()
          })
       }
    }
 
    onMounted(async () => {
       mcLog(logPrefix, 'Entering onMounted() ..')
+      
       if (props.id) {
          await loadPostContent(props.id)
       }
+
+      // window.getBlogInitData = () => ({
+      //    toc: [],
+      //    activeHeading: '',
+      //    init() {
+      //       // this.generateTOC()
+      //       this.setupIntersectionObserver()
+      //       this.highlightCode()
+      //    },
+      //    scrollToHeading(event) {
+      //       const id = event.target.getAttribute('href').substring(1);
+      //       console.log('Scrolling to heading: ' + id)
+            
+      //       this.activeHeading = id
+      //       console.log('Target heading : ' + this.activeHeading)
+            
+      //       const element = document.getElementById(id)
+      //       if (element) {
+      //          const contentDiv = document.querySelector('div[mc-role="layout-blog-post"] > .content')
+      //          if (contentDiv) {
+      //             const topOffset = element.offsetTop - contentDiv.offsetTop
+      //             contentDiv.scrollTo({
+      //                top: topOffset,
+      //                behavior: 'smooth'
+      //             })
+
+      //             // Update the active heading after a short delay
+      //             const this1 = this
+      //             setTimeout(() => {
+      //                this1.activeHeading = id
+      //             }, 100)
+      //          }
+      //       }
+      //    },
+      //    setupIntersectionObserver() {
+      //       console.log('Setting up intersection observer ..')
+      //       const options = {
+      //          root: document.querySelector('div[mc-role="layout-blog-post"] > .content'),
+      //          rootMargin: '100px 0px -90% 0px',
+      //          threshold: 0
+      //       }
+
+      //       const this1 = this
+      //       const observer = new IntersectionObserver((entries) => {
+      //          entries.forEach(entry => {
+      //             if (entry.isIntersecting) {
+      //                this1.activeHeading = entry.target.id
+      //                console.log('Active heading id : ' + this1.activeHeading)
+      //             }
+      //          })
+      //       }, options)
+
+      //       document
+      //          .querySelectorAll('.post-content h2, .post-content h3')
+      //          .forEach(heading => {
+      //             // console.log(heading)
+      //             observer.observe(heading)
+      //          })
+      //    },
+      //    highlightCode() {
+      //       document.querySelectorAll('pre code').forEach((block) => {
+      //          hljs.highlightElement(block)
+      //       })
+      //    }
+      // })
+
+      // document.addEventListener(
+      //    'alpine:init', 
+      //    () => {
+      //       console.log('Initializing alpine data ..')
+      //       Alpine.data(
+      //          'hashnodeBlogPost', 
+      //          () => ({
+      //             activeHeading: '',
+                  
+      //             init() {
+      //                this.setupIntersectionObserver()
+      //             },
+
+      //             scrollToHeading(id) {
+      //                console.log('Scrolling to heading: ' + id)
+      //                const element = document.getElementById(id);
+      //                if (element) {
+      //                   element.scrollIntoView({ behavior: 'smooth' });
+      //                }
+      //             },
+
+      //             setupIntersectionObserver() {
+      //                const options = {
+      //                   root: document.querySelector('div[mc-role="layout-blog-post"] > .content'),
+      //                   rootMargin: '100px 0px -90% 0px',
+      //                   threshold: 0
+      //                }
+
+      //                const observer = new IntersectionObserver((entries) => {
+      //                   entries.forEach(entry => {
+      //                         if (entry.isIntersecting) {
+      //                            this.activeHeading = entry.target.id
+      //                         }
+      //                   })
+      //                }, options)
+
+      //                document.querySelectorAll('.post-content h2, .post-content h3').forEach(heading => {
+      //                   observer.observe(heading)
+      //                })
+      //             }
+      //          })
+      //       )
+      //       console.log('Initialized alpine data.')
+      //    }
+      // )
+      
       mcLog(logPrefix, 'Leaving onMounted().')
    })
 
@@ -222,34 +369,34 @@
    //   mcLog(logPrefix, `Active heading changed from ${oldVal} to ${newVal}`)
    // })
 
-   onBeforeUnmount(() => {
-      if (observer.value) {
-         observer.value.disconnect()
-      }
-   })
+   // onBeforeUnmount(() => {
+   //    if (observer.value) {
+   //       observer.value.disconnect()
+   //    }
+   // })
 
-   function handleTocClick(id) {
-      // Prevent the default anchor behavior
-      event.preventDefault()
+   // function handleTocItemClick(id) {
+   //    // Prevent the default anchor behavior
+   //    event.preventDefault()
 
-      // Scroll to the heading
-      const element = document.getElementById(id)
-      if (element) {
-         const contentDiv = document.querySelector('div[mc-role="layout-blog-post"] > .content')
-         if (contentDiv) {
-            const topOffset = element.offsetTop - contentDiv.offsetTop
-            contentDiv.scrollTo({
-               top: topOffset,
-               behavior: 'smooth'
-            })
+   //    // Scroll to the heading
+   //    const element = document.getElementById(id)
+   //    if (element) {
+   //       const contentDiv = document.querySelector('div[mc-role="layout-blog-post"] > .content')
+   //       if (contentDiv) {
+   //          const topOffset = element.offsetTop - contentDiv.offsetTop
+   //          contentDiv.scrollTo({
+   //             top: topOffset,
+   //             behavior: 'smooth'
+   //          })
 
-            // Update the active heading after a short delay
-            setTimeout(() => {
-               activeHeading.value = id
-            }, 100)
-         }
-      }
-   }
+   //          // Update the active heading after a short delay
+   //          setTimeout(() => {
+   //             activeHeading.value = id
+   //          }, 100)
+   //       }
+   //    }
+   // }
 </script>
 
 <style>
@@ -258,16 +405,23 @@
       grid-template-columns: 1fr minmax(15rem, 20rem);
       color: hsl(var(--foreground));
       height: 100%;
+      /* font-family: 'Open Sans', sans-serif; */
+      line-height: 1.6;
+      /* box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
+      font-family: "Suisse Intl", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
 
-      &>.post-content {
+      & > .post-content {
          padding-left: 1rem;
          padding-right: 1rem;
 
-         &>.blog-title {
+         & > .blog-title {
             /* font-size: 2.5em; */
             margin-top: 0;
             margin-bottom: 0.5em;
-            color: hsl(var(--primary));
+            /* color: hsl(var(--primary)); */
+            /* font-weight: 700; */
          }
 
          /* Common blog post styles */
@@ -277,9 +431,12 @@
          & h4,
          & h5,
          & h6 {
+            /* font-family: 'Georgia', serif; */
+            line-height: 1.25;
             margin-top: 1.5em;
             margin-bottom: 0.5em;
-            font-weight: 600;
+            font-weight: 700;
+            color: #1a1a2e
          }
 
          /* Set margin-top to 0 for the first h2 */
@@ -288,7 +445,7 @@
          }
 
          & h1 {
-            font-size: 2.5em;
+            font-size: 3rem;
          }
 
          & h2 {
@@ -338,28 +495,28 @@
             color: hsl(var(--muted-foreground));
          }
 
-         & code {
-            background-color: hsl(var(--muted) / 0.3);
-            padding: 0.2em 0.4em;
-            border-radius: 3px;
-            font-family: monospace;
-         }
-
          & pre {
             padding: 0;
             /* Remove padding from pre */
             overflow-x: auto;
             margin-bottom: 1.5em;
             white-space: pre-wrap;
-         }
+            font-size: 0.875rem;
 
-         & pre code {
-            display: block;
-            padding: 1em;
-            /* Add padding to code block */
-            overflow-x: auto;
-            background: none;
-            /* Remove background from code, as it will be handled by highlight.js */
+            & code {
+               background-color: hsl(var(--muted) / 0.3);
+               /* padding: 0.2em 0.4em; */
+               border-radius: 3px;
+               font-family: monospace;
+               overflow-x: auto;
+
+               &.language-plaintext {
+                  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+                  font-weight: 500;
+                  background-color: #1a1a2e;
+                  color: #00ffff;
+               }
+            }
          }
 
          & ul,
@@ -371,6 +528,10 @@
          & li {
             margin-bottom: 0.5em;
             padding-left: 0.5em;
+
+            & > p {
+               margin-bottom: 0;
+            }
          }
 
          /* Improved list styling */
@@ -402,7 +563,7 @@
          }
       }
 
-      &>.post-toc {
+      & > .post-toc {
          /* flex: 1; */
          padding-left: 20px;
          border-left: 1px solid hsl(var(--border));
@@ -413,8 +574,10 @@
          /* Adjust for blog title */
          overflow-y: auto;
 
-         & h2 {
-            color: hsl(var(--foreground));
+         & > h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: hsl(var(--muted-foreground));
          }
 
          & ul {

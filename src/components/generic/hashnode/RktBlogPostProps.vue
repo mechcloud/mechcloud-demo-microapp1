@@ -6,6 +6,7 @@
          label="Select a post"
          :options="posts"
          v-model="selectedPost"
+         style="max-width: 100%;"
       >
       </mc-select>
    </div>
@@ -130,4 +131,7 @@
       }
    )
 </script>
+
+<style>
+</style>
 
