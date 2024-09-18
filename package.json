@@ -9,7 +9,8 @@
    "module": "./dist/vue-components.js",
    "scripts": {
       "lint": "run eslint --quiet src/",
-      "build": "run eslint --quiet src/ && vite build",
+      "build": "vite build",
+      "lint-build": "run eslint --quiet src/ && vite build",
       "preview": "vite preview --host :: --strictPort --port 8080",
       "deploy": "wrangler pages deploy ./dist --project-name mechcloud-demo-microapp1 --branch main"
    },
