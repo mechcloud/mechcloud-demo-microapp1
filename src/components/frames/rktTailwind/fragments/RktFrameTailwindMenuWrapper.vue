@@ -4,7 +4,6 @@
          :parentNode="parentNode"
          :children="children"
          icon="caret-right"
-         style="width: 15rem;"
       >
          <template #slot1="slotProps">
             <mc-navigation-link

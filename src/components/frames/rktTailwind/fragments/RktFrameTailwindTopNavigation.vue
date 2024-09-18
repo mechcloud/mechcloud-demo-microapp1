@@ -1,7 +1,7 @@
 <template>
    <div 
       v-if="nodes.length > 0"
-      mc-role="top-navigation"
+      mc-role="frame-tailwind-top-navigation"
       class="mc-flex"
       style="row-gap: 1rem;"
    >
@@ -80,7 +80,13 @@ const props = defineProps({
 <style>
 @import '@/styles/shadcn.css';
 
-div[mc-role=top-navigation] {
+div[mc-role=frame-tailwind-top-navigation] {
+   & ul[mc-role=generic-menu] {
+      /* display: block; */
+      min-width: 10rem;
+      max-width: 20rem;
+   }
+
    & a[mc-role=navigation-link] {
       display: block;
       /* width: 100%; */
