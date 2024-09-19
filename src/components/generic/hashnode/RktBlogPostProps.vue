@@ -3,6 +3,13 @@
       class="mc-controls"
    >
       <mc-select
+         label="Select a blog"
+         :options="blogs"
+         v-model="selectedBlog"
+      >
+      </mc-select>
+      <mc-select
+         v-if="selectedBlog.id"
          label="Select a post"
          :options="posts"
          v-model="selectedPost"
@@ -14,6 +21,7 @@
 
 <script setup>
    import { 
+computed,
       inject,
       onBeforeMount,
       shallowRef,
@@ -29,6 +37,19 @@
    } from '@mechcloud/shared-js'
 
    const logPrefix = 'McBlogPostProps ::'
+
+   const blogs = [
+      {
+         id: 'blog.mechcloud.io',
+         label: 'MechCloud'
+      },
+      {
+         id: 'academy.mechcloud.io',
+         label: 'MechCloud Academy'
+      }
+   ]
+
+   const selectedBlog = shallowRef({})
    
    const posts = shallowRef([])
    const selectedPost = shallowRef({})
@@ -37,31 +58,36 @@
       url: 'https://gql.hashnode.com'
    })
 
-   const listPosts = `
-      query GetPosts {
-         publication(host: "blog.mechcloud.io") {
-            title
-            posts(first: 10) {
-               edges {
-                  node {
-                     slug 	
-                     title
+   const listPosts = computed(() => {
+      return `
+         query GetPosts {
+            publication(host: "${selectedBlog.value.id ? selectedBlog.value.id : ''}") {
+               title
+               posts(first: 10) {
+                  edges {
+                     node {
+                        slug 	
+                        title
+                     }
                   }
                }
             }
          }
-      }
-   `
+      `
+   })
+
+   // console.log(listPosts.value)
 
    const { data, execute } = useQuery({
       query: listPosts,
       fetchOnMount: false
    })
 
-   onBeforeMount(async () => {
-      mcLog(logPrefix, `Entering onBeforeMount() ..`)
+   async function loadPosts() {
+      mcLog(logPrefix, `Entering loadPosts() ..`)
       
       mcLog(logPrefix, 'Loading list of posts ..')
+      // console.log(listPosts.value)
       await execute()
 
       if(data.value) {
@@ -75,57 +101,46 @@
                      )
       }
 
-      mcLog(logPrefix, `Leaving onBeforeMount().`)
-   })
-
-   // console.log(error)
-
-   // const getPosts = (data) => {
-   //    if(data) {
-   //       return data.publication.posts.edges.map(
-   //          edge => { 
-   //             return { 
-   //                id: edge.node.slug,
-   //                label: edge.node.title
-   //             } 
-   //          }
-   //       )
-   //    }
-
-   //    return []
-   // }
-
-   // onMounted(async () => {
-   //    mcLog(logPrefix, `Entering onMounted() ..`)
-
-   //    execute()
-
-   //    console.log(data)
-   //    // const data = resp.data
-
-   //    posts.value = data.publication.posts.edges.map(
-   //                   edge => { 
-   //                      return { 
-   //                         id: edge.node.slug,
-   //                         label: edge.node.title
-   //                      } 
-   //                   }
-   //                )
-   // })
+      mcLog(logPrefix, `Leaving loadPosts().`)
+   }
 
    const selectedControl = inject('selectedControl')
 
    watch(
+      selectedBlog,
+      async () => {
+         mcLog(logPrefix, `Entering watch() for selectedBlog ..`)
+
+         selectedPost.value = {
+            id: '',
+            label: 'Loading ..'
+         }
+         await loadPosts()
+         selectedPost.value = {
+            id: '',
+            label: ''
+         }
+
+         mcLog(logPrefix, `Leaving watch().`)
+      }
+   )
+
+   watch(
       selectedPost,
-      (newVal, oldVal) => {
-         mcLog(logPrefix, `Entering watch() ..`)
+      (newVal) => {
+         mcLog(logPrefix, `Entering watch() for selectedPost ..`)
 
-         Object.assign(
-            selectedControl.value.metadata.props,
-            newVal
-         )
+         if(newVal.id != '') {
+            Object.assign(
+               selectedControl.value.metadata.props,
+               {
+                  blogId: selectedBlog.value.id,
+                  postId: selectedPost.value.id
+               }
+            )
 
-         selectedControl.value.id = mcGenerateUuid()
+            selectedControl.value.id = mcGenerateUuid()
+         }
 
          mcLog(logPrefix, `Leaving watch().`)
       }
