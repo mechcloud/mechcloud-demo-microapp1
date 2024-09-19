@@ -10,9 +10,8 @@
          <h1 class="blog-title">{{ blogTitle }}</h1>
          <div v-html="postHtmlContent"></div>
       </div>
-      <div 
+      <div class="post-toc" 
          v-if="toc.length > 0" 
-         class="post-toc" 
          :key="activeHeading"
       >
          <h3>Table of Contents</h3>
@@ -57,22 +56,22 @@
 </script>
 
 <script setup>
-   import { shallowRef, watch, onMounted, nextTick, ref } from 'vue'
+   import { shallowRef, watch, onMounted, nextTick, ref, computed } from 'vue'
    import { useClient, useQuery } from 'villus'
    import { mcLog } from '@mechcloud/shared-js'
-   // import hljs from 'highlight.js'
-   // import 'highlight.js/styles/default.css' // You can choose a different style
+   import hljs from 'highlight.js'
+   import 'highlight.js/styles/default.min.css'
    // import { throttle } from 'lodash-es'
    import MarkdownIt from 'markdown-it'
 
    const logPrefix = 'RktBlogPost ::'
 
    const props = defineProps({
-      id: {
+      blogId: {
          type: String,
          default: ''
       },
-      label: {
+      postId: {
          type: String,
          default: ''
       }
@@ -90,9 +89,9 @@
       url: 'https://gql.hashnode.com'
    })
 
-   const queryPostContent = `
+   const queryPostContent = computed(() => `
       query GetPost($slug: String!) {
-         publication(host: "blog.mechcloud.io") {
+         publication(host: "${props.blogId}") {
             title
             post(slug: $slug) {
                   title
@@ -103,7 +102,7 @@
             }
          }
       }
-   `
+   `)
 
    const { data, execute } = useQuery({
       query: queryPostContent,
@@ -141,12 +140,37 @@
       // Replace YouTube links with embedded iframes
       modifiedHtml = modifiedHtml.replace(/%\[(https:\/\/www\.youtube\.com\/watch\?v=[\w-]+)\]/g, (match, p1) => {
          const videoId = p1.split('v=')[1];
-         return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+
+         const result = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+
+         // console.log('YouTube result : ' + result)
+
+         return result;
       })
 
-      // nextTick(() => {
-      //    highlightCode()
-      // })
+      // Replace Google Drawings links with img tags
+      modifiedHtml = modifiedHtml.replace(/!\[\]\((https:\/\/docs\.google\.com\/drawings\/d\/e\/.+?)\s+(.*?)\)/g, (match, url, props) => {
+         // Decode the URL to handle &amp; correctly
+         const decodedUrl = decodeURIComponent(url.replace(/&amp;/g, '&'));
+
+         const imgProps = props.split(/\s+/).reduce((obj, pair) => {
+            const [key, value] = pair.split('=');
+            if (key && value) {
+                  obj[key] = value.replace(/^"(.*)"$/, '$1');
+            }
+            return obj;
+         }, {});
+         
+         const propsString = Object.keys(imgProps).map(key => `${key}="${imgProps[key]}"`).join(' ');
+         
+         const result = `<img loading="lazy" src="${decodedUrl}" ${propsString} alt="">`;
+         
+         // console.log('Image result: ' + result);
+         
+         return result;
+      });
+
+      // console.log(modifiedHtml)
 
       return modifiedHtml
    }
@@ -173,44 +197,11 @@
       return tocItems;
    }
 
-   // function highlightCode() {
-   //    nextTick(() => {
-   //       document.querySelectorAll('pre code').forEach((block) => {
-   //          hljs.highlightElement(block)
-   //       })
-   //    })
-   // }
-
-   // function setupIntersectionObserver() {
-   //    // mcLog(logPrefix, 'Setting up Intersection Observer ..')
-
-   //    const options = {
-   //       root: document.querySelector('div[mc-role="layout-blog-post"] > .content'),
-   //       rootMargin: '100px 0px -90% 0px',
-   //       threshold: 0
-   //    }
-
-   //    observer.value = new IntersectionObserver((entries) => {
-   //       entries.forEach(entry => {
-   //          if (entry.isIntersecting) {
-   //             activeHeading.value = entry.target.id
-   //          }
-   //       })
-   //    }, options)
-
-   //    nextTick(() => {
-   //       const headings = document.querySelectorAll('.post-content h2, .post-content h3')
-   //       headings.forEach(heading => {
-   //          observer.value.observe(heading)
-   //       })
-   //    })
-   // }
-
-   async function loadPostContent(id) {
-      mcLog(logPrefix, `Loading post content for id: ${id}`)
+   async function loadPostContent() {
+      mcLog(logPrefix, `Loading post content for id: ${props.postId}`)
       await execute({
          variables: {
-            slug: id
+            slug: props.postId
          }
       })
 
@@ -219,184 +210,28 @@
 
          postHtmlContent.value = getPostContentAsHtml(data.value)
          toc.value = generateTOC(postHtmlContent.value)
-
-         nextTick(() => {
-            // highlightCode()
-            // setupIntersectionObserver()
-         })
       }
+   }
+
+   function highlightCode() {
+      document.querySelectorAll('.post-content pre code').forEach((block) => {
+         hljs.highlightElement(block)
+      })
    }
 
    onMounted(async () => {
       mcLog(logPrefix, 'Entering onMounted() ..')
       
-      if (props.id) {
-         await loadPostContent(props.id)
+      if (props.blogId && props.postId) {
+         await loadPostContent()
       }
 
-      // window.getBlogInitData = () => ({
-      //    toc: [],
-      //    activeHeading: '',
-      //    init() {
-      //       // this.generateTOC()
-      //       this.setupIntersectionObserver()
-      //       this.highlightCode()
-      //    },
-      //    scrollToHeading(event) {
-      //       const id = event.target.getAttribute('href').substring(1);
-      //       console.log('Scrolling to heading: ' + id)
-            
-      //       this.activeHeading = id
-      //       console.log('Target heading : ' + this.activeHeading)
-            
-      //       const element = document.getElementById(id)
-      //       if (element) {
-      //          const contentDiv = document.querySelector('div[mc-role="layout-blog-post"] > .content')
-      //          if (contentDiv) {
-      //             const topOffset = element.offsetTop - contentDiv.offsetTop
-      //             contentDiv.scrollTo({
-      //                top: topOffset,
-      //                behavior: 'smooth'
-      //             })
-
-      //             // Update the active heading after a short delay
-      //             const this1 = this
-      //             setTimeout(() => {
-      //                this1.activeHeading = id
-      //             }, 100)
-      //          }
-      //       }
-      //    },
-      //    setupIntersectionObserver() {
-      //       console.log('Setting up intersection observer ..')
-      //       const options = {
-      //          root: document.querySelector('div[mc-role="layout-blog-post"] > .content'),
-      //          rootMargin: '100px 0px -90% 0px',
-      //          threshold: 0
-      //       }
-
-      //       const this1 = this
-      //       const observer = new IntersectionObserver((entries) => {
-      //          entries.forEach(entry => {
-      //             if (entry.isIntersecting) {
-      //                this1.activeHeading = entry.target.id
-      //                console.log('Active heading id : ' + this1.activeHeading)
-      //             }
-      //          })
-      //       }, options)
-
-      //       document
-      //          .querySelectorAll('.post-content h2, .post-content h3')
-      //          .forEach(heading => {
-      //             // console.log(heading)
-      //             observer.observe(heading)
-      //          })
-      //    },
-      //    highlightCode() {
-      //       document.querySelectorAll('pre code').forEach((block) => {
-      //          hljs.highlightElement(block)
-      //       })
-      //    }
-      // })
-
-      // document.addEventListener(
-      //    'alpine:init', 
-      //    () => {
-      //       console.log('Initializing alpine data ..')
-      //       Alpine.data(
-      //          'hashnodeBlogPost', 
-      //          () => ({
-      //             activeHeading: '',
-                  
-      //             init() {
-      //                this.setupIntersectionObserver()
-      //             },
-
-      //             scrollToHeading(id) {
-      //                console.log('Scrolling to heading: ' + id)
-      //                const element = document.getElementById(id);
-      //                if (element) {
-      //                   element.scrollIntoView({ behavior: 'smooth' });
-      //                }
-      //             },
-
-      //             setupIntersectionObserver() {
-      //                const options = {
-      //                   root: document.querySelector('div[mc-role="layout-blog-post"] > .content'),
-      //                   rootMargin: '100px 0px -90% 0px',
-      //                   threshold: 0
-      //                }
-
-      //                const observer = new IntersectionObserver((entries) => {
-      //                   entries.forEach(entry => {
-      //                         if (entry.isIntersecting) {
-      //                            this.activeHeading = entry.target.id
-      //                         }
-      //                   })
-      //                }, options)
-
-      //                document.querySelectorAll('.post-content h2, .post-content h3').forEach(heading => {
-      //                   observer.observe(heading)
-      //                })
-      //             }
-      //          })
-      //       )
-      //       console.log('Initialized alpine data.')
-      //    }
-      // )
+      nextTick(() => {
+         highlightCode()
+      })
       
       mcLog(logPrefix, 'Leaving onMounted().')
    })
-
-   watch(
-      () => props.id,
-      async (newVal, oldVal) => {
-         mcLog(logPrefix, 'Entering watch() ..')
-         mcLog(logPrefix, 'New post id : ' + newVal)
-
-         if (newVal !== '') {
-            await loadPostContent(newVal)
-         } else {
-            postHtmlContent.value = ''
-            toc.value = []
-         }
-
-         mcLog(logPrefix, 'Leaving watch().')
-      }
-   )
-
-   // watch(activeHeading, (newVal, oldVal) => {
-   //   mcLog(logPrefix, `Active heading changed from ${oldVal} to ${newVal}`)
-   // })
-
-   // onBeforeUnmount(() => {
-   //    if (observer.value) {
-   //       observer.value.disconnect()
-   //    }
-   // })
-
-   // function handleTocItemClick(id) {
-   //    // Prevent the default anchor behavior
-   //    event.preventDefault()
-
-   //    // Scroll to the heading
-   //    const element = document.getElementById(id)
-   //    if (element) {
-   //       const contentDiv = document.querySelector('div[mc-role="layout-blog-post"] > .content')
-   //       if (contentDiv) {
-   //          const topOffset = element.offsetTop - contentDiv.offsetTop
-   //          contentDiv.scrollTo({
-   //             top: topOffset,
-   //             behavior: 'smooth'
-   //          })
-
-   //          // Update the active heading after a short delay
-   //          setTimeout(() => {
-   //             activeHeading.value = id
-   //          }, 100)
-   //       }
-   //    }
-   // }
 </script>
 
 <style>
