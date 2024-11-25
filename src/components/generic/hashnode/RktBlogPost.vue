@@ -237,7 +237,7 @@
 <style>
    [mc-role="hashnode-blog-post"] {
       display: grid;
-      grid-template-columns: 1fr minmax(15rem, 20rem);
+      grid-template-columns: minmax(0, 1fr) minmax(15rem, 20rem);
       color: hsl(var(--foreground));
       height: 100%;
       /* font-family: 'Open Sans', sans-serif; */
@@ -305,6 +305,14 @@
 
          & p {
             margin-bottom: 1.5em;
+            
+            & code {
+               overflow-wrap: break-word;
+               background-color: #f0efed;
+               padding: 0.25rem;
+               border-radius: 0.25rem;
+               font-size: 90%;
+            }
          }
 
          & a {
@@ -335,8 +343,9 @@
             /* Remove padding from pre */
             overflow-x: auto;
             margin-bottom: 1.5em;
-            white-space: pre-wrap;
+            /* white-space: pre-wrap; */
             font-size: 0.875rem;
+            scrollbar-width: thin;
 
             & code {
                background-color: hsl(var(--muted) / 0.3);
@@ -366,6 +375,7 @@
 
             & > p {
                margin-bottom: 0;
+               line-height: 1.75rem;
             }
          }
 
