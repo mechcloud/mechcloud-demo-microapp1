@@ -1,0 +1,1 @@
+export { default as RktExternalPage1 } from './RktExternalPage1.vue'
