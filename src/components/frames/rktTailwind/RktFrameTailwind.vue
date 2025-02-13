@@ -1,16 +1,22 @@
 <template>
-   <rkt-frame-tailwind-header />
-   <main style="max-width: 1440px; margin: auto; padding: 0.2rem;">
-      <mc-render-node />
-   </main>
+   <template
+      v-if="!targetSiteNode.hasOwnProperty('renderFrame') || targetSiteNode.renderFrame">
+      <rkt-frame-tailwind-header />
+      <main style="max-width: 1440px; margin: auto; padding: 0.2rem;">
+         <mc-render-node />
+      </main>
 
-   <!-- This is required to remove focus away
-   after clicking on navigation context menu -->
-   <a 
-      hef="#" 
-      ref="navHideFocus"
-      tabindex="0"
-   />
+      <!-- This is required to remove focus away
+      after clicking on navigation context menu -->
+      <a 
+         hef="#" 
+         ref="navHideFocus"
+         tabindex="0"
+      />
+   </template>
+
+   <!-- Rendering without frame -->
+   <mc-render-node v-else />
 </template>
 
 <script>
@@ -21,11 +27,17 @@ export default {
 
 <script setup>
 import { 
-   McRenderNode
+   McRenderNode,
+   mcUseNavigationStore
 } from '@mechcloud/piston-ui-sdk'
 
 import RktFrameTailwindHeader from './fragments/RktFrameTailwindHeader.vue'
 import { provide, shallowRef } from 'vue';
+
+const mcNavigationStore = mcUseNavigationStore(window.pinia)
+
+const targetSiteNode = mcNavigationStore.getSiteNode()
+// console.log(targetSiteNode)
 
 const navHideFocus = shallowRef(null)
 provide('nav-hide-focus', navHideFocus)
