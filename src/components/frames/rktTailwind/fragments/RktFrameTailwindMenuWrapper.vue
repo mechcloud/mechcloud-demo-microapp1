@@ -23,7 +23,7 @@
             <rkt-frame-tailwind-menu-wrapper 
                :uriPrefix="slotProps.uriPrefix"
                :parentNode="slotProps.parentNode"
-               :children="slotProps.children.filter(node => !node.hasOwnProperty('hidden') || !node.hidden)" 
+               :children="filterNodes(slotProps.children)" 
             />
          </template>
       </mc-generic-menu>
@@ -36,6 +36,9 @@ export default {
 </script>
 
 <script setup>
+import {
+   inject,
+} from 'vue'
 import { 
    McNavigationLink,
 } from '@mechcloud/piston-ui-sdk'
@@ -45,5 +48,17 @@ const props = defineProps({
    parentNode: Object,
    children: Array
 })
+
+const pageMode = inject('pageMode')
+
+function filterNodes(nodes) {
+   // console.log(pageMode)
+   // console.log(nodes)
+   if(pageMode !== 'design') {
+      return nodes.filter(node => !node.hasOwnProperty('hidden') || !node.hidden)
+   }
+
+   return nodes
+}
 </script>
 

@@ -5,7 +5,7 @@
       class="mc-flex"
       style="row-gap: 1rem;"
    >
-      <template v-for="topNode in nodes.filter(node => !node.hasOwnProperty('hidden') || !node.hidden)">
+      <template v-for="topNode in filterNodes(nodes)">
          <template v-if="topNode.children">
             <mc-menu-wrapper>
                <template #trigger="slotProps">
@@ -44,7 +44,7 @@
                   <rkt-frame-tailwind-menu-wrapper 
                      uriPrefix=""
                      :parentNode="topNode" 
-                     :children="topNode.children.filter(node => !node.hasOwnProperty('hidden') || !node.hidden)" 
+                     :children="filterNodes(topNode.children)" 
                   />
                </template>
             </mc-menu-wrapper>
@@ -66,6 +66,9 @@ export default {
 </script>
 
 <script setup>
+import {
+   inject,
+} from 'vue'
 import { 
    McNavigationLink,
 } from '@mechcloud/piston-ui-sdk'
@@ -75,6 +78,18 @@ import {
 const props = defineProps({
    nodes: Array
 })
+
+const pageMode = inject('pageMode')
+
+function filterNodes(nodes) {
+   // console.log(pageMode)
+   // console.log(nodes)
+   if(pageMode != 'design') {
+      return nodes.filter(node => !node.hasOwnProperty('hidden') || !node.hidden)
+   }
+
+   return nodes
+}
 </script>
 
 <style>
