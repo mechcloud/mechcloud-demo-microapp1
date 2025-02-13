@@ -165,6 +165,7 @@ export default defineConfig({
       https: {
          key: fs.readFileSync("certs/server/server.key"),
          cert: fs.readFileSync("certs/server/server.crt")
-      }
+      },
+      cors: true
    }
 });
