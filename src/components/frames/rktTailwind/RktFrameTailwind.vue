@@ -1,6 +1,6 @@
 <template>
    <template
-      v-if="!targetSiteNode.hasOwnProperty('renderFrame') || targetSiteNode.renderFrame">
+      v-if="pageMode == 'design' || targetSiteNode.renderFrame">
       <rkt-frame-tailwind-header />
       <main style="max-width: 1440px; margin: auto; padding: 0.2rem;">
          <mc-render-node />
@@ -32,12 +32,14 @@ import {
 } from '@mechcloud/piston-ui-sdk'
 
 import RktFrameTailwindHeader from './fragments/RktFrameTailwindHeader.vue'
-import { provide, shallowRef } from 'vue';
+import { inject, provide, shallowRef } from 'vue';
 
 const mcNavigationStore = mcUseNavigationStore(window.pinia)
 
 const targetSiteNode = mcNavigationStore.getSiteNode()
 // console.log(targetSiteNode)
+
+const pageMode = inject('pageMode')
 
 const navHideFocus = shallowRef(null)
 provide('nav-hide-focus', navHideFocus)
