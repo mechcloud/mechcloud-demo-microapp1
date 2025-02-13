@@ -1,0 +1,7 @@
+name = "mechcloud-demo-microapp1"
+compatibility_date = "2025-01-29"
+compatibility_flags = [ "nodejs_compat" ]
+pages_build_output_dir = "./dist"
+
+[placement]
+mode = "smart"

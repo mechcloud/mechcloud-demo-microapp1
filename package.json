@@ -1,5 +1,4 @@
 {
-   "packageManager": "yarn@4.1.1",
    "name": "@mechcloud/demo-microapp1",
    "version": "1.0.0",
    "license": "MIT",
@@ -12,17 +11,17 @@
       "build": "vite build",
       "lint-build": "run eslint --quiet src/ && vite build",
       "preview": "vite preview --host :: --strictPort --port 8080",
-      "deploy": "wrangler pages deploy ./dist --project-name mechcloud-demo-microapp1 --branch main"
+      "deploy1": "wrangler pages deploy --branch main"
    },
    "dependencies": {
-      "@mechcloud/piston-ui-sdk": "link:../../mechcloud/shared/mechcloud-piston-ui-sdk",
-      "@mechcloud/shared-js": "link:../../mechcloud/shared/mechcloud-shared-js",
-      "graphql": "^16.9.0",
-      "highlight.js": "^11.10.0",
+      "@mechcloud/piston-ui-sdk": "link:..\\..\\mechcloud\\shared\\mechcloud-piston-ui-sdk",
+      "@mechcloud/shared-js": "link:..\\..\\mechcloud\\shared\\mechcloud-shared-js",
+      "graphql": "^16.10.0",
+      "highlight.js": "^11.11.1",
       "markdown-it": "^14.1.0",
-      "pinia": "^2.2.1",
-      "villus": "^3.5.0",
-      "vue": "^3.4.37",
+      "pinia": "^2.3.1",
+      "villus": "^3.5.2",
+      "vue": "^3.5.13",
       "vue3-highlightjs": "^1.0.5"
    },
    "resolutions": {
@@ -30,22 +29,22 @@
       "@mechcloud/piston-ui-sdk": "^1.0.13"
    },
    "devDependencies": {
-      "@eslint/js": "^9.9.1",
+      "@eslint/js": "^9.20.0",
       "@rollup/plugin-replace": "^5.0.7",
       "@rollup/plugin-terser": "^0.4.4",
       "@rollup/plugin-virtual": "^3.0.2",
-      "@vitejs/plugin-vue": "^5.1.2",
+      "@vitejs/plugin-vue": "^5.2.1",
       "autoprefixer": "^10.4.20",
-      "eslint": "^9.9.1",
-      "eslint-plugin-vue": "^9.27.0",
-      "globals": "^15.9.0",
-      "postcss": "^8.4.41",
+      "eslint": "^9.20.1",
+      "eslint-plugin-vue": "^9.32.0",
+      "globals": "^15.15.0",
+      "postcss": "^8.5.2",
       "postcss-extend-rule": "^4.0.0",
       "postcss-import": "^16.1.0",
       "postcss-nested": "^6.2.0",
-      "tailwindcss": "^3.4.10",
-      "vite": "^5.4.0",
-      "wrangler": "^3.71.0",
+      "tailwindcss": "^3.4.17",
+      "vite": "^5.4.14",
+      "wrangler": "^3.108.1",
       "yarn-upgrade-all": "^0.7.4"
    }
 }
