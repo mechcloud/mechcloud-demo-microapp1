@@ -5,6 +5,7 @@
       class="mc-flex"
       style="row-gap: 1rem;"
    >
+      <span class="mc-fs-1125 mc-fw-7" style="margin-right: 1rem;">Rocket</span>
       <template v-for="topNode in filterNodes(nodes)">
          <template v-if="topNode.children">
             <mc-menu-wrapper>

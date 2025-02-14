@@ -1,25 +1,49 @@
 <template>
    <header
-      class="mc-container header tw-sticky tw-z-10 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 tw-py-3 mc-flex mc-flex-v-center mc-fs-0875"
+      class="mc-container header tw-sticky tw-z-10 tw-bg-white/90 tw-backdrop-blur-lg tw-inset-x-0 tw-top-0 tw-border-b tw-border-gray-100 mc-flex mc-flex-v-center mc-fs-0875"
       style="flex-direction: row; gap: 1rem;"
    >
-      <a 
-         href="https://ui.shadcn.com" 
-         target="_blank"
+      <nav 
+         id="top-navigation" 
+         data="mc-static-global" 
+         class="mc-flex mc-flex-h-space-between"
       >
-         <strong style="font-size: larger;">Rocket</strong>
-      </a>
-      
-      <nav id="top-navigation" data="mc-static-global" style="display: contents;">
          <rkt-frame-tailwind-top-navigation
             class="mc-flex mc-flex-v-center"
             style="gap: 0.5rem;"
             uriPrefix=""
             :nodes="$mcContext.siteMap"
          />
+
+         <div 
+            v-if="!isStaticVersion"   
+            style="margin: 1rem 0; margin-left: 1rem;"
+         >
+            <mc-menu-wrapper>
+               <template #trigger="slotProps">
+                  <span 
+                     style="padding: 5px;"
+                     tabindex="0"
+                     @focus="slotProps.updateFlag(true)"
+                     @blur="slotProps.updateFlag(false)"
+                  >
+                     {{ $mcContext.user.email }}
+                     <mc-icon 
+                        icon="caret-down" 
+                     />
+                  </span>
+               </template>
+               <template #menu-content>
+                  <mc-menu-content 
+                     :actions="actions"
+                     @logout="handleLogout"
+                  />
+               </template>
+            </mc-menu-wrapper>
+         </div>
       </nav>
       
-      <div v-if="!isStaticVersion" style="margin-left: auto;">{{ $mcContext.user.email }}</div>
+      <!-- <div v-if="!isStaticVersion" style="margin-left: auto;">{{ $mcContext.user.email }}</div> -->
    </header>
 </template>
 
@@ -34,6 +58,21 @@ import { inject } from 'vue';
 import RktFrameTailwindTopNavigation from './RktFrameTailwindTopNavigation.vue'
 
 const isStaticVersion = inject('isStaticVersion')
+
+const actions = [
+   {
+      label: "Logout",
+      operation: "logout"
+   }
+]
+
+function handleLogout() {
+   fetch("/oauth2/sign_out")
+   .then((resp) => {
+      // console.log(resp)
+      window.location.href = "https://id.mechcloud.io/v2/logout?returnTo=" + window.location.origin + '&client_id=n6dMQlo8ZCE5QxLY4o2KjeBaSn8eefTX';
+   })
+}
 </script>
 
 <style> 
@@ -44,6 +83,7 @@ const isStaticVersion = inject('isStaticVersion')
    }
    
    .header {
+      padding: 0;
       padding-inline-start: 1rem;
       padding-inline-end: 1rem;
 
