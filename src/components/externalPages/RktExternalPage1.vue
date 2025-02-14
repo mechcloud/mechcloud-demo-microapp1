@@ -1,3 +1,3 @@
 <template>
-   <h2>This is an external page</h2>
+   <h2>External Page 1</h2>
 </template>
