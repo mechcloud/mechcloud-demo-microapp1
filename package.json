@@ -8,7 +8,8 @@
    "module": "./dist/vue-components.js",
    "scripts": {
       "lint": "run eslint --quiet src/",
-      "build": "vite build && copy index.html dist\\",
+      "build": "vite build",
+      "build-prod": "vite build && copy index.html dist\\",
       "lint-build": "run eslint --quiet src/ && vite build",
       "preview": "vite preview --host :: --strictPort --port 8080",
       "deploy1": "wrangler pages deploy --branch main"
@@ -24,7 +25,7 @@
       "vue": "^3.5.13",
       "vue3-highlightjs": "^1.0.5"
    },
-   "resolutions": {
+   "resolutions1": {
       "@mechcloud/shared-js": "^1.0.7",
       "@mechcloud/piston-ui-sdk": "^1.0.14"
    },
