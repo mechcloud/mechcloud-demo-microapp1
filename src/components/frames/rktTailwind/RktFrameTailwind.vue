@@ -32,7 +32,7 @@ import {
 } from '@mechcloud/piston-ui-sdk'
 
 import RktFrameTailwindHeader from './fragments/RktFrameTailwindHeader.vue'
-import { inject, provide, shallowRef } from 'vue';
+import { inject, onMounted, provide, shallowRef } from 'vue';
 
 const mcNavigationStore = mcUseNavigationStore(window.pinia)
 
@@ -43,6 +43,16 @@ const pageMode = inject('pageMode')
 
 const navHideFocus = shallowRef(null)
 provide('nav-hide-focus', navHideFocus)
+
+const frameVars = inject('frameVars')
+
+onMounted(() => {
+   if(Object.keys(frameVars.value).length == 0) {
+      frameVars.value = {
+         title: 'Rocket'
+      }
+   }
+})
 </script>
 
 <style>

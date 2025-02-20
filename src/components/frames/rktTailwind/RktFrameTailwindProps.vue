@@ -2,32 +2,55 @@
    <div 
       class="mc-controls"
    >
-      <mc-select
-         label="Theme"
-         :options="themes"
-         v-model="theme"
-      >
-      </mc-select>
+      <mc-text
+         label="Title"
+         v-model="settings.title"
+      />
+
+      <mc-button
+         label="Save"
+         style="width: max-content"
+         @click="pageDesignerEvent = { eventName: 'update-frame-props', eventData: settings }"
+      />
    </div>
 </template>
 
 <script setup>
+   import { mcClone } from '@mechcloud/shared-js'
+   import { mcUseGlobalCmpntUtils } from '@mechcloud/piston-ui-sdk'
    import { 
+      reactive,
       inject,
-      onMounted
+      onMounted,
+      watch
    } from 'vue'
 
-   const theme = inject('theme')
+   const { mcContext } = mcUseGlobalCmpntUtils()
 
-   const themes = [
-      {
-         id: 'tw1-theme-black',
-         label: 'Black'
+   defineEmits(['update-frame-props'])
+
+   // const selectedControl = inject('selectedControl')
+
+   const frameVars = inject('frameVars')
+   const pageDesignerEvent = inject('pageDesignerEvent')
+
+   const settings = reactive(
+                     mcClone(frameVars.value)
+                  )
+
+   // onMounted(() => {
+
+   // })
+
+   watch(
+      settings,
+      (newVal) => {
+         frameVars.value = newVal
       },
       {
-         id: 'tw1-theme-blue',
-         label: 'Blue'
+         deep: true
       }
-   ]
+   )
+
 </script>
 

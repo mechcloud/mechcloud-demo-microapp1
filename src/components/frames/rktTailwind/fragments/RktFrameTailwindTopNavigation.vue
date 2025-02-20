@@ -5,7 +5,7 @@
       class="mc-flex"
       style="row-gap: 1rem;"
    >
-      <span class="mc-fs-1125 mc-fw-7" style="margin-right: 1rem;">Rocket</span>
+      <span  class="mc-fs-1125 mc-fw-7" style="margin-right: 1rem;">{{frameVars.title}}</span>
       <template v-for="topNode in filterNodes(nodes)">
          <template v-if="topNode.children">
             <mc-menu-wrapper>
@@ -76,11 +76,16 @@ import {
 
 // import RktMenuWrapper from './RktMenuWrapper.vue';
 
+// const { mcCmpntName, mcContext } = mcUseGlobalCmpntUtils()
+// const logPrefix = `${mcCmpntName} ::`
+
 const props = defineProps({
    nodes: Array
 })
 
 const pageMode = inject('pageMode')
+
+const frameVars = inject('frameVars')
 
 function filterNodes(nodes) {
    // console.log(pageMode)
